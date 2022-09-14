@@ -1,0 +1,21 @@
+near login
+near create-account ${SUBACCOUNT_ID}.${ACCOUNT_ID} --masterAccount ${ACCOUNT_ID} --initialBalance ${INITIAL_BALANCE}
+
+
+yarn asb - yarn assemble
+
+near deploy --accountId=${ACCOUNT_ID} --wasmFile=${PATH_TO_WASM}
+
+near call mycontract.myaccount.testnet setProduct '{"id": "0", "productName": "tea"}' --accountId=myaccount.testnet
+
+near call mycontract.myaccount.testnet setProduct '{"product": {"id": "0", "name": "BBQ", "description": "Grilled chicken and beef served with vegetables and chips.", "location": "Berlin, Germany", "price": "1000000000000000000000000", "image": "https://i.imgur.com/yPreV19.png"}}' --accountId=myaccount.testnet
+
+near create-account buyeraccount.myaccount.testnet --masterAccount myaccount.testnet --initialBalance 6
+
+near call mycontract.myaccount.testnet buyProduct '{"productId": "0"}' --depositYocto=1000000000000000000000000 --accountId=buyeraccount.myaccount.testnet
+
+near call nft.ecotech.testnet mintNFT '{"collection": {"id": "0", "name": "Regeneration House Barichara", "description": "The best ideas are always born when different perspecitves aligned towards the same goal combine to create something new. Catalized through ReFiBarichara. ", "location": "Barichara, Columbia", "price": "1000000000000000000000000", "image": "https://i.imgur.com/pwcONMN.png"}}' --accountId=ecotech.testnet  
+
+near view nft.ecotech.testnet getNFT '{"id": "0"}'
+
+near call nft.ecotech.testnet mintNFT '{"collection": {"id": "1", "name": "Regeneration House Nairobi", "description": "What we are doing to the forests of the world is but a mirror reflection of what we are doing to ourselves and to one another. Sponsored through ReFiBarichara. ", "location": "Barichara, Columbia", "price": "1000000000000000000000000", "image": "https://i.imgur.com/PXtsLY7.jpeg"}}' --accountId=ecotech.testnet  
